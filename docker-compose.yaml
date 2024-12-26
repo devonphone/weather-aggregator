@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    container_name: weather-aggregator-app
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    networks:
+      - weather-app-net
+
+  redis:
+    image: redis:latest
+    container_name: weather-aggregator-redis
+    networks:
+      - weather-app-net
+    
+networks:
+  weather-app-net:
+    driver: bridge
